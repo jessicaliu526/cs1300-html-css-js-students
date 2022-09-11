@@ -1,4 +1,5 @@
 // Make a GET request to the fruityvice api to retrieve some fruit data
+console.log("hi")
 const apiRequest = async () => {
   const BASE_URL = 'https://www.fruityvice.com/api/'
 
@@ -26,15 +27,27 @@ const updatePage = async () => {
 
   // Make API request and get an array of fruit objects
   const fruitsArray = await apiRequest();
-  // console.log(fruitsArray);
+  console.log(fruitsArray);
 
   // TODO: Use either `map` and/or `filter` to extract some data from the array of fruit objects
   // For example, find "name of all fruits whose sugar > 15",
 
+  const newfruitarray = fruitsArray.filter(item => checksugar(item));
+
   // TODO: Create a new HTML element to display your data
-
+  const newElement = document.createElement('div');
+  var text = ""
+  for (i=0; i< newfruitarray.length; i++){
+    text+= newfruitarray[i].name
+  }
+  newElement.innerHTML = text;
   // TODO: Append your new element to the page
+  const existingElement = document.getElementById("cs1300-gallery");
+  existingElement.append(newElement);
+}
 
+function checksugar(item){
+  return item.nutritions.sugar > 15;
 }
 
 // SAMPLE CODE of how to create and append a new HTML element to the page
